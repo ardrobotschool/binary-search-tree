@@ -9,7 +9,7 @@ BinSchTree::BinSchTree(){
 }
 
 BinSchTree::~BinSchTree(){
-    
+    delete head;
 }
 
 bool BinSchTree::isEmpty(){
@@ -17,7 +17,11 @@ bool BinSchTree::isEmpty(){
 }
 
 void BinSchTree::insert(int num){
-    
+    if(head == 0){
+        head = new Node(num);
+        return;
+    }
+    insertPrivate(head, num);
 }
 
 void BinSchTree::print(){
@@ -44,4 +48,17 @@ void BinSchTree::print(){
         }
         cout << endl;
     }*/
+}
+
+void BinSchTree::insertPrivate(Node* parent, int num){
+    if(parent == 0){
+        parent = new Node(num);
+        return;
+    }
+    if(num < parent){
+        insertPrivate(parent->left, num);
+    }
+    else{
+        insertPrivate(parent->right, num);
+    }
 }

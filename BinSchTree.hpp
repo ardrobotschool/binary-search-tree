@@ -2,6 +2,18 @@
 #include <iostream>
 #pragma once
 
+struct Node{
+  int value;
+  Node* left = 0, *right = 0;
+  Node(int newValue){
+    value = newValue;
+  }
+  ~Node(){
+    delete left;
+    delete right;
+  }
+};
+
 class BinSchTree{
   public:
     BinSchTree();
@@ -12,4 +24,5 @@ class BinSchTree{
     void print();
   private:
     Node* head = NULL;
+    void insertPrivate(Node* parent, int num);
 };
