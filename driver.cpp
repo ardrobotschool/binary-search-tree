@@ -10,8 +10,7 @@
 
 using namespace std;
 
-void populate(Heap &heap, char *list);
-void printList(Heap &heap);
+void populate(BinSchTree &binSchTree, char *list);
 
 int main(){
     /*Heap heap;
@@ -26,7 +25,7 @@ int main(){
     }
     cout << "." << endl;*/
     while(true){
-        Heap heap;
+        BinSchTree binSchTree;
         char input;
         cout << "Choose an option: \n(1) Enter numbers manually.\n(2) Enter file name.\n(q) Quit." << endl;
         cin >> input;
@@ -35,7 +34,7 @@ int main(){
             cout << "Enter the numbers, separated by commas and/or spaces:" << endl;
             cin.ignore();
             cin.getline(list, 150);
-            populate(heap, list);
+            populate(binSchTree, list);
         }
         else if(input == '2'){
             char filename[32];
@@ -46,7 +45,7 @@ int main(){
                 char list[16384];
                 stream.getline(list, 16384, 0);
                 stream.close();
-                populate(heap, list);
+                populate(binSchTree, list);
             }
             else{
                 cout << "Could not open file." << endl;
@@ -62,10 +61,7 @@ int main(){
         
         cout << "Choose an option: \n(1) Print out numbers in descending order.\n(2) Print out the tree.\n(3) Both (1) and (2)\n(q) Quit." << endl;
         cin >> input;
-        if(input == '1'){
-            printList(heap);
-        }
-        else if(input == '2'){
+        if(input == '2'){
             heap.print();
         }
         else if(input == '3'){
@@ -89,7 +85,7 @@ int main(){
     return 0;
 }
 
-void populate(Heap &heap, char *list){
+void populate(BinSchTree &binSchTree, char *list){
     int index = 0;
     while(list[index]){
         if(isdigit(list[index])){
@@ -103,12 +99,4 @@ void populate(Heap &heap, char *list){
             index++;
         }
     }
-}
-
-void printList(Heap &heap){
-    cout << heap.pop();
-    while(!heap.isEmpty()){
-        cout << ", " << heap.pop();
-    }
-    cout << "." << endl;
 }
