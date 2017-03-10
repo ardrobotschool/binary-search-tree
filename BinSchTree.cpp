@@ -25,8 +25,13 @@ void BinSchTree::insert(int num){
 }
 
 void BinSchTree::print(){
-    //I made it look pretty, but only if the numbers are 1 or 2 digit.
-    /*int numLevels = ceil(log2(count + 1));
+    int numLevels = numLevels(head);
+    //I'll use the same algorithm I developed for the heap, converting the data
+    //to an array first.
+    int nodes[pow(2, l) - 1];
+    memset(nodes, 0, sizeof(nodes));
+    populateArray(nodes, 0, head);
+    
     int index = 0;
     for(int l=1; l <= numLevels; l++){
         //Initial spaces:
@@ -35,19 +40,14 @@ void BinSchTree::print(){
         }
         //Nodes:
         for(int n=0; n < pow(2, l-1); n++){
-            if(nodes[index] != 0){
-                cout << nodes[index++]; // Node
-            }
-            else{
-                break;
-            }
+            cout << nodes[index] != 0 ? nodes[index++] : ' '; //Node
             //Spaces between nodes:
             for(int i=0; i < pow(2, numLevels - l + 1) - 1; i++){
                 cout << ' ';
             }
         }
         cout << endl;
-    }*/
+    }
 }
 
 void BinSchTree::insertPrivate(Node* parent, int num){
@@ -61,4 +61,20 @@ void BinSchTree::insertPrivate(Node* parent, int num){
     else{
         insertPrivate(parent->right, num);
     }
+}
+
+int binSchTree::numLevels(Node* root, int level = 0){
+    if(root == 0){
+        return level;
+    }
+    return max(numLevels(root->left, level + 1), numLevels(root->right, level + 1));
+}
+
+void binSchTree::populateArray(int *& array, int index, Node* node){
+    if(node == 0){
+        return;
+    }
+    array[index] = node->value;
+    populateArray(array, index*2+1, node->left);
+    populateArray(array, index*2+2, node->right);
 }
