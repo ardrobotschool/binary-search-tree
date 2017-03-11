@@ -5,7 +5,7 @@
  * Artur Drobot, Mar 2017.
  */
 #include <iostream>
-#include "Heap.hpp"
+#include "BinSchTree.hpp"
 #include <fstream>
 
 using namespace std;
@@ -27,7 +27,7 @@ int main(){
     while(true){
         BinSchTree binSchTree;
         char input;
-        cout << "Choose an option: \n(1) Enter numbers manually.\n(2) Enter file name.\n(q) Quit." << endl;
+        cout << "Choose an option to populate the tree: \n(1) Enter numbers manually.\n(2) Enter file name.\n(q) Quit." << endl;
         cin >> input;
         if(input == '1'){
             char list[150];
@@ -59,16 +59,10 @@ int main(){
             cout << "Command not recognized." << endl;
         }
         
-        cout << "Choose an option: \n(1) Print out numbers in descending order.\n(2) Print out the tree.\n(3) Both (1) and (2)\n(q) Quit." << endl;
+        cout << "Choose an option: \n(1) Print out the tree.\n(2) Add a number.\n(3) Remove a number.\n(q) Quit." << endl;
         cin >> input;
-        if(input == '2'){
-            heap.print();
-        }
-        else if(input == '3'){
-            cout << "Tree:" << endl;
-            heap.print();
-            cout << "Sorted (in descending order) list:" << endl;
-            printList(heap);
+        if(input == '1'){
+            binSchTree.print();
         }
         else if (input == 'q'){
             break;
@@ -93,7 +87,7 @@ void populate(BinSchTree &binSchTree, char *list){
             while(isdigit(list[++index])){
                 num = 10*num + (list[index] - '0');
             }
-            heap.insert(num);
+            binSchTree.insert(num);
         }
         else{
             index++;

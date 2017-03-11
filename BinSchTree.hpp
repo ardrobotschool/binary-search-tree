@@ -24,7 +24,7 @@ class BinSchTree{
     void print();
   private:
     Node* head = NULL;
-    void insertPrivate(Node* parent, int num);
-    int numLevels(Node* root, int level = 0);
+    void insertPrivate(Node *& parent, int num);
+    int getNumLevels(Node* root, int level);
     void populateArray(int *& array, int index, Node* node);
 };

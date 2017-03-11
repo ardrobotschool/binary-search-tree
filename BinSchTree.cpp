@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BinSchTree.hpp"
 #include <cmath>
+#include <cstring>
 
 using namespace std;
 
@@ -25,13 +26,15 @@ void BinSchTree::insert(int num){
 }
 
 void BinSchTree::print(){
-    int numLevels = numLevels(head);
+    int numLevels = getNumLevels(head, 0);
     //I'll use the same algorithm I developed for the heap, converting the data
     //to an array first.
-    int nodes[pow(2, l) - 1];
+    int nodes[(int)(pow(2, numLevels)) - 1];
+    int* arrPtr = nodes;
     memset(nodes, 0, sizeof(nodes));
-    populateArray(nodes, 0, head);
+    populateArray(arrPtr, 0, head);
     
+    cout << nodes[1] << endl;
     int index = 0;
     for(int l=1; l <= numLevels; l++){
         //Initial spaces:
@@ -40,7 +43,13 @@ void BinSchTree::print(){
         }
         //Nodes:
         for(int n=0; n < pow(2, l-1); n++){
-            cout << nodes[index] != 0 ? nodes[index++] : ' '; //Node
+            if(nodes[index]!=0){
+                cout << nodes[index];
+            }
+            else{
+                cout << ' ';
+            }
+            index++;
             //Spaces between nodes:
             for(int i=0; i < pow(2, numLevels - l + 1) - 1; i++){
                 cout << ' ';
@@ -50,12 +59,12 @@ void BinSchTree::print(){
     }
 }
 
-void BinSchTree::insertPrivate(Node* parent, int num){
+void BinSchTree::insertPrivate(Node *& parent, int num){
     if(parent == 0){
         parent = new Node(num);
         return;
     }
-    if(num < parent){
+    if(num < parent->value){
         insertPrivate(parent->left, num);
     }
     else{
@@ -63,14 +72,14 @@ void BinSchTree::insertPrivate(Node* parent, int num){
     }
 }
 
-int binSchTree::numLevels(Node* root, int level = 0){
+int BinSchTree::getNumLevels(Node* root, int level = 0){
     if(root == 0){
         return level;
     }
-    return max(numLevels(root->left, level + 1), numLevels(root->right, level + 1));
+    return max(getNumLevels(root->left, level + 1), getNumLevels(root->right, level + 1));
 }
 
-void binSchTree::populateArray(int *& array, int index, Node* node){
+void BinSchTree::populateArray(int *& array, int index, Node* node){
     if(node == 0){
         return;
     }
