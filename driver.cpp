@@ -48,22 +48,38 @@ int main(){
             cout << "Command not recognized." << endl;
         }
         
-        cout << "Choose an option: \n(1) Print out the tree.\n(2) Add a number.\n(3) Remove a number.\n(q) Quit." << endl;
-        cin >> input;
-        if(input == '1'){
-            binSchTree.print();
+        while(true){
+            cout << "What do you want to do now?: \n(1) Print out the tree.\n(2) Add a number.\n(3) Remove a number.\n(4) Start a new list.\n(q) Quit program.\n(9) Sleep for 9 hours." << endl;
+            cin >> input;
+            if(input == '1'){
+                cout << "Tree:" << endl;
+                binSchTree.print();
+            }
+            else if (input == '2'){
+                int num;
+                cout << "Enter the number: ";
+                cin >> num;
+                cout << endl;
+                binSchTree.insert(num);
+                cout << "Done." << endl;
+            }
+            else if (input == '4' || input == 'q'){
+                break;
+            }
+            else if (input == '9'){
+                cout << "Access denied by the International Baccalaureate Programme. Your attempt has been logged." << endl;
+            }
+            else{
+                cout << "Command not recognized." << endl;
+            }
+            cout << "Press enter to continue." << endl;
+            cin.ignore();
+            cin.get();
         }
-        else if (input == 'q'){
+        if(input == 'q'){
             break;
         }
-        else{
-            cout << "Command not recognized." << endl;
-        }
-        cout << "Would you like to input another list? (y/n) ";
-        cin >> input;
-        if(input != 'y'){
-            break;
-        }
+        
     }
     return 0;
 }
