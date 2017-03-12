@@ -4,14 +4,21 @@
 
 struct Node{
   int value;
-  Node* left = 0, *right = 0;
-  Node(int newValue){
+  Node* left, *right;
+  Node(int newValue) : left(0), right(0){
     value = newValue;
   }
-  ~Node(){
+  void deleteSubtree(){
+    if(left!=0){
+      left->deleteSubtree();
+    }
+    if(right!=0){
+      right->deleteSubtree();
+    }
     delete left;
     delete right;
   }
+  ~Node(){}
 };
 
 class BinSchTree{
@@ -27,4 +34,6 @@ class BinSchTree{
     void insertPrivate(Node *& parent, int num);
     int getNumLevels(Node* root, int level);
     void populateArray(int *& array, int index, Node* node);
+    Node** find(Node *& node, int num);
+    void removeNode(Node** toRemove);
 };

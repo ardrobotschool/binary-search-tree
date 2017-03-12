@@ -63,6 +63,18 @@ int main(){
                 binSchTree.insert(num);
                 cout << "Done." << endl;
             }
+            else if (input == '3'){
+                int num;
+                cout << "Enter the number: ";
+                cin >> num;
+                cout << endl;
+                if(binSchTree.remove(num)){
+                    cout << "Number removed." << endl;
+                }
+                else{
+                    cout << "Number not found in the tree." << endl;
+                }
+            }
             else if (input == '4' || input == 'q'){
                 break;
             }
